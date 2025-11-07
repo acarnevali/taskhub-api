@@ -9,6 +9,8 @@ import { AuthController } from "../../../../users/controllers/authController.js"
 import { TasksRepository } from "../../../../tasks/repositories/tasksRepository.js"; 
 import { CreateTaskService } from "../../../../tasks/services/createTaskService.js";
 import { CreateTaskController } from "../../../../tasks/controller/createTaskController.js";
+import { UpdateUserService } from "../../../../users/service/updateUserService.js";
+import { UpdateUserController } from "../../../../users/controllers/updateUserController.js";
 
 import { ListUserTasksService } from "../../../../tasks/services/listUserTasksService.js";
 import { ListUserTasksController } from "../../../../tasks/controller/listUserTasksController.js";
@@ -26,6 +28,9 @@ const createUserService = new CreateUserService(usersRepository);
 const authService = new AuthService(usersRepository);
 const createUserController = new CreateUserController(createUserService);
 const authController = new AuthController(authService);
+const updateUserService = new UpdateUserService(usersRepository);
+const updateUserController = new UpdateUserController(updateUserService);
+
 
 const tasksRepository = new TasksRepository();
 const createTaskService = new CreateTaskService(tasksRepository);
@@ -43,6 +48,7 @@ routes.post("/auth/login", authController.handle);
 routes.get("/me/profile", authMiddleware, (req, res) => {
   return res.json({ message: `Seu ID de usuário é ${req.user.id}` });
 });
+routes.put("/me", authMiddleware, updateUserController.handle);
 
 
 routes.post("/tasks", authMiddleware, createTaskController.handle);
