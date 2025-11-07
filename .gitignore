@@ -1,0 +1,14 @@
+# Dependências
+node_modules/
+
+# Arquivos de Ambiente (MUITO IMPORTANTE!)
+# Contém senhas de banco e segredos JWT
+.env
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Sistema Operacional
+.DS_Store
