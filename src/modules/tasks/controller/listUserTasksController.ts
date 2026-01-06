@@ -5,14 +5,10 @@ export class ListUserTasksController {
   constructor(private listUserTasksService: ListUserTasksService) {}
 
   handle = async (req: Request, res: Response) => {
-    try {
-      const { id: userId } = req.user;
+    const { id: userId } = req.user;
 
-      const tasks = await this.listUserTasksService.execute(userId);
+    const tasks = await this.listUserTasksService.execute(userId);
 
-      return res.status(200).json(tasks);
-    } catch (error: any) {
-      return res.status(400).json({ error: error.message });
-    }
+    return res.status(200).json(tasks);
   };
 }
