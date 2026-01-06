@@ -5,14 +5,10 @@ export class DeleteUserController {
   constructor(private deleteUserService: DeleteUserService) {}
 
   handle = async (req: Request, res: Response) => {
-    try {
-      const { id: userId } = req.user;
+    const { id: userId } = req.user;
 
-      await this.deleteUserService.execute(userId);
+    await this.deleteUserService.execute(userId);
 
-      return res.status(204).send();
-    } catch (error: any) {
-      return res.status(400).json({ error: error.message });
-    }
+    return res.status(204).send();
   };
 }
