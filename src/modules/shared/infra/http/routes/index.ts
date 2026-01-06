@@ -50,6 +50,21 @@ const deleteTaskController = new DeleteTaskController(deleteTaskService);
 //users
 routes.post("/users", createUserController.handle);
 routes.post("/auth/login", authController.handle);
+
+/**
+ * @openapi
+ * /me/profile:
+ *   get:
+ *     tags:
+ *       - Users
+ *     summary: Retorna ID do usuário logado
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: Sucesso
+ */
+
 routes.get("/me/profile", authMiddleware, (req, res) => {
   return res.json({ message: `Seu ID de usuário é ${req.user.id}` });
 });
