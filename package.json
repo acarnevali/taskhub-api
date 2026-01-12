@@ -9,7 +9,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "prisma:generate": "prisma generate --schema=./prisma/schema.prisma --dotenv-config-path=.env",
-    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --dotenv-config-path=.env --name init"
+    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma --dotenv-config-path=.env --name init",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +33,7 @@
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.0",
+    "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
@@ -40,8 +42,10 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
+    "supertest": "^7.2.2",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

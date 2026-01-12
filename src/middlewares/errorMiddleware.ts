@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 
 export function errorMiddleware(
-  error: Error,
+  error: any,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -14,22 +14,19 @@ export function errorMiddleware(
     });
   }
 
-  if (error.message === "Task not found." || error.message === "User not found.") {
-    return res.status(404).json({ error: error.message });
+  const errorMessage = error.message?.toLowerCase() || "";
+  
+  if (
+    error.code === "P2002" || 
+    errorMessage.includes("already in use") || 
+    errorMessage.includes("already exists")
+  ) {
+    return res.status(409).json({ error: "Email already in use." });
   }
 
-  if (error.message === "Forbidden.") {
-    return res.status(403).json({ error: "Forbidden: You do not own this resource." });
-  }
-
-  if (error.message.includes("User already exists") || error.message.includes("email is already in use")) {
-    return res.status(409).json({ error: error.message });
-  }
-
-  if (error.message.includes("Invalid credentials")) {
-    return res.status(401).json({ error: error.message });
-  }
-
-  console.error("Internal Server Error:", error);
-  return res.status(500).json({ error: "Internal server error." });
+  return res.status(500).json({ 
+    error: "Internal server error.",
+    debugMessage: error.message, 
+    debugCode: error.code
+  });
 }
